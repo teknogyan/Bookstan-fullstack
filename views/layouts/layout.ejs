@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mybrary</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">LOGO</a>
+        <ul>
+          <li><a href="#">Books</a></li>
+          <li><a href="#">Add Book</a></li>
+          <li><a href="/authors">Authors</a></li>
+          <li><a href="/authors/new">Add Author</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main><%- body %></main>
+    <footer>Mybrary Inc. &copy; 2023, All Rights Reserved</footer>
+  </body>
+  <script src="https://kit.fontawesome.com/34fdb15d52.js" crossorigin="anonymous"></script>
+</html>
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+  ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  header {
+    margin-top: 1rem;
+
+  }
+
+  nav {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  main {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  footer {
+    margin-top: 24px;
+    text-align: center;
+  }
+</style>

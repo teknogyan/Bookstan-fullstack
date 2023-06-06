@@ -1,0 +1,62 @@
+<h2>Find Authors</h2>
+
+<form action="/authors" method="get">
+  <input type="text" name="authorToFind" value="<%= inputQuery %>"/>
+  <button type="submit">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+</form>
+
+<% if (data.length === 0) { %>
+<div style="color: gray">Author not found!</div>
+<% } %> <% data.map((author, index) => { %>
+<div id="authorCard">
+  <form action="/authors/delete" method="post">
+    <span><%= index + 1 %>.</span>
+    <input
+      id="display-authors"
+      type="text"
+      name="authorName"
+      value="<%= author %>"
+    />
+    <button id="delete-button" type="submit">
+      <i class="fa-solid fa-trash-can"></i>
+    </button>
+  </form>
+</div>
+<% }) %>
+
+<style>
+  div#authorCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: slategrey;
+    margin: 1rem auto;
+    width: 320px;
+    height: 100px;
+    color: #fff;
+    font-size: 1.4rem;
+  }
+
+  span {
+    margin-right: 4px;
+  }
+
+  #delete-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: red;
+    margin: 1rem;
+    font-size: 1.2rem;
+    padding: 0.2rem 0.5rem;
+  }
+  input[type="text"]#display-authors {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1.2rem;
+  }
+</style>
