@@ -1,0 +1,33 @@
+<h2>Find Books</h2>
+
+<form action="/books" method="get">
+  <input type="text" name="bookToFind" value="" />
+  <button type="submit">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+</form>
+
+<% books.map((book) => { %> 
+
+<% const thumbnail = (book.thumbnail) ? `uploads/bookCovers/${book.thumbnail}` : '#' %>
+<div class="book-card">
+  <img width="100px" height="150px" src= <%= thumbnail %> alt="" />
+  <h3><%= book.title %></h3>
+  <% if(book.author) {%>
+  <h4>by: <%= book.author.name %></h4>
+  <% } %>
+  <h4><%= book.pageCount %> pages</h4>
+  <h4>published on: <%= book.publishedDate.toLocaleDateString() %></h4>
+  <p><%= book.description %></p>
+</div>
+<% }) %>  
+
+<style>
+  .book-card {
+    background-color: rgba(0, 128, 128, 0.555);
+    margin: 1rem auto;
+    width: 320px;
+    padding: 14px 20px;
+    border-radius: 4px;
+  }
+</style>

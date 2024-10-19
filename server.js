@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const indexRoute = require("./routes/index");
 const authorsRoute = require("./routes/authors");
+const booksRoute = require("./routes/books")
 
 app.use(expressLayouts);
 
@@ -18,9 +19,9 @@ app.set("views", __dirname + "/views");
 app.set("layout", __dirname + "/views/layouts/layout");
 
 //static assets
-app.use(express.static(__dirname + "public"));
+app.use(express.static(__dirname + "/public"));
 
-// In the course the 'body-parser' library is used which comes bundled with express now I guess.
+// In the course the 'body-parser' library is used which comes bundled with express now, I guess.
 app.use(express.urlencoded({ limit: "10mb", extended: false }));
 
 const { collection } = require("./models/author");
@@ -42,6 +43,7 @@ dbConn.once("open", () => {
 //setting Routes
 app.use("/", indexRoute);
 app.use("/authors", authorsRoute);
+app.use("/books", booksRoute);
 
 app.listen(PORT, () => {
   console.log(`listening on the Port ${PORT}`);
