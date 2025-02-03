@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
         if (authorExists) {
             res.render("authors/new", {
                 authorName: author.name,
-                err: `Author already exists`,
+                err: `Author already exists`,   
             });
         } else {
             await author.save();

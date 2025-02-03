@@ -39,4 +39,4 @@ module.exports = mongoose.model("Book", bookSchema);
 
 module.exports.coverImgDir = coverImgDir;
 
-console.log("module being exported",  module);
+console.log("module being exported are",  module.exports);

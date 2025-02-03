@@ -34,6 +34,7 @@ router.get("/new", async (req, res) => {
   }
 });
 
+// Route for creating new book
 router.post("/", upload.single("thumbnail"), async (req, res) => {
   const filename = req.file != null ? req.file.filename : null;
   const {

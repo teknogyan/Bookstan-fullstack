@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const indexRoute = require("./routes/index");
 const authorsRoute = require("./routes/authors");
-const booksRoute = require("./routes/books")
+const booksRoute = require("./routes/books");
 
 app.use(expressLayouts);
 
@@ -26,19 +26,21 @@ app.use(express.urlencoded({ limit: "10mb", extended: false }));
 
 const { collection } = require("./models/author");
 const author = require("./models/author");
-
-mongoose.connect(process.env.DATABASE_URL);
+try {
+    mongoose.connect(process.env.DATABASE_URL);
+} catch (error) {
+    console.log(error);
+}
 
 const dbConn = mongoose.connection;
 
 dbConn.on("error", (error) => {
-  console.error(error);
+    console.error(error);
 });
 
 dbConn.once("open", () => {
-  console.log("Connected to Mongoose");
+    console.log("Connected to Mongoose");
 });
-
 
 //setting Routes
 app.use("/", indexRoute);
@@ -46,5 +48,5 @@ app.use("/authors", authorsRoute);
 app.use("/books", booksRoute);
 
 app.listen(PORT, () => {
-  console.log(`listening on the Port ${PORT}`);
+    console.log(`listening on the Port ${PORT}`);
 });
