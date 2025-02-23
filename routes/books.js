@@ -12,17 +12,20 @@ const upload = multer({
   dest: fileUploadPath,
   fileFilter: (req, file, callback) => {
     if (imageMimeTypes.indexOf(file.mimetype) == -1) {
-      callback(new Error("file not supported"));
+      callback(null, false);
     } else {
       callback(null, true);
     }
   },
 });
 
+// GET Route to load books page
 router.get("/", async (req, res) => {
+  const bookToFind = req.query.bookToFind;
+  console.log("Book To find: ", bookToFind);
   const books = await Books.find({}).populate("author");
   // console.log("books recieved form DB", books);
-  res.render("books", { books: books });
+  res.render("books", { books: books, bookToFind});
 });
 
 router.get("/new", async (req, res) => {
@@ -36,6 +39,7 @@ router.get("/new", async (req, res) => {
 
 // Route for creating new book
 router.post("/", upload.single("thumbnail"), async (req, res) => {
+  console.log(req.file);
   const filename = req.file != null ? req.file.filename : null;
   const {
     title,
@@ -73,8 +77,13 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
     res.redirect("/books");
   } catch (err) {
     console.log("error saving book:", err);
-    res.render("/books/new");
+    res.render("books/new", {book, error: err});
   }
 });
+
+
+router.delete("/",(req, res)=> {
+
+})
 
 module.exports = router;

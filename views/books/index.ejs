@@ -1,12 +1,13 @@
 <h2>Find Books</h2>
 
 <form action="/books" method="get">
-  <input type="text" name="bookToFind" value="" />
+  <input type="text" name="bookToFind" value= <%= bookToFind %> />
   <button type="submit">
     <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 </form>
 
+<div class="books-container">
 <% books.map((book) => { %> 
 
 <% const thumbnail = (book.thumbnail) ? `uploads/bookCovers/${book.thumbnail}` : '#' %>
@@ -21,13 +22,29 @@
   <p><%= book.description %></p>
 </div>
 <% }) %>  
+</div>
 
 <style>
+  .books-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 80%;
+    
+   
+  }
+
   .book-card {
     background-color: rgba(0, 128, 128, 0.555);
-    margin: 1rem auto;
+    margin: 2rem auto;
     width: 320px;
     padding: 14px 20px;
     border-radius: 4px;
+  }
+  .book-card:hover{
+    transform: scale(1.1);
+    transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 </style>
