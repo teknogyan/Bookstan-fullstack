@@ -5,6 +5,8 @@ console.log(Books);
 const Author = require("../models/author");
 const multer = require("multer"); // library to handle multipart form that may contain images
 const path = require("path");
+const book = require("../models/book");
+const { error } = require("console");
 const fileUploadPath = path.join("public", Books.coverImgDir);
 
 const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"]; // allowed images files formats for upload
@@ -21,11 +23,12 @@ const upload = multer({
 
 // GET Route to load books page
 router.get("/", async (req, res) => {
-  const bookToFind = req.query.bookToFind;
+  const bookToFind = {}
+  if(req.query.bookToFind) bookToFind = req.query.bookToFind;
   console.log("Book To find: ", bookToFind);
-  const books = await Books.find({}).populate("author");
+  const books = await findBooks(bookToFind);
   // console.log("books recieved form DB", books);
-  res.render("books", { books: books, bookToFind});
+  res.render("books", { books: books, bookToFind, error: null });
 });
 
 router.get("/new", async (req, res) => {
@@ -77,13 +80,25 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
     res.redirect("/books");
   } catch (err) {
     console.log("error saving book:", err);
-    res.render("books/new", {book, error: err});
+    res.render("books/new", { book, error: err });
   }
 });
 
+router.post("/delete", async (req, res) => {
+  console.log(req.body.id);
+  const bookId = req.body.id;
+  try {
+    await Books.deleteOne({_id: bookId})
+    res.redirect("/books")
+  } catch (error) {
+    const books = await findBooks({})
+    res.render("books", {books, error: "Sorry, Couldn't Delete!", bookToFind: null})
+  }
+});
 
-router.delete("/",(req, res)=> {
-
-})
+const findBooks = async (bookToFind) => {
+  const books = await Books.find(bookToFind).populate("author");
+  return books;
+}
 
 module.exports = router;
