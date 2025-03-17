@@ -14,7 +14,7 @@ const upload = multer({
   dest: fileUploadPath,
   fileFilter: (req, file, callback) => {
     if (imageMimeTypes.indexOf(file.mimetype) == -1) {
-      callback(null, false);
+      callback(null, false);qa
     } else {
       callback(null, true);
     }
@@ -23,14 +23,17 @@ const upload = multer({
 
 // GET Route to load books page
 router.get("/", async (req, res) => {
-  const bookToFind = {}
-  if(req.query.bookToFind) bookToFind = req.query.bookToFind;
-  console.log("Book To find: ", bookToFind);
-  const books = await findBooks(bookToFind);
+  const searchQuery = {};
+  if (req.query.bookToFind) {
+    searchQuery.title = req.query.bookToFind;
+    console.log("Book To find: ", searchQuery.title);
+  }
+  const books = await findBooks(searchQuery);
   // console.log("books recieved form DB", books);
-  res.render("books", { books: books, bookToFind, error: null });
+  res.render("books", { books: books, searchQuery, error: null });
 });
 
+// Add New Book Route
 router.get("/new", async (req, res) => {
   try {
     const authors = await Author.find({});
@@ -88,17 +91,23 @@ router.post("/delete", async (req, res) => {
   console.log(req.body.id);
   const bookId = req.body.id;
   try {
-    await Books.deleteOne({_id: bookId})
-    res.redirect("/books")
+    await Books.deleteOne({ _id: bookId });
+    res.redirect("/books");
   } catch (error) {
-    const books = await findBooks({})
-    res.render("books", {books, error: "Sorry, Couldn't Delete!", bookToFind: null})
+    const books = await findBooks({});
+    res.render("books", {
+      books,
+      error: "Sorry, Couldn't Delete!",
+      bookToFind: null,
+    });
   }
 });
 
+
+// Utility function to load books from db and populate authors
 const findBooks = async (bookToFind) => {
   const books = await Books.find(bookToFind).populate("author");
   return books;
-}
+};
 
 module.exports = router;
