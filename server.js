@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const dotEnv = require("dotenv").config();
+const methodOverride = require('method-override')
 
 const mongoose = require("mongoose");
 
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 5000;
 const indexRoute = require("./routes/index");
 const authorsRoute = require("./routes/authors");
 const booksRoute = require("./routes/books");
+
+app.use(methodOverride('_method'))
+
 
 app.use(expressLayouts);
 

@@ -11,7 +11,7 @@
 <div style="color: gray">Author not found!</div>
 <% } %> <% data.map((author, index) => { %>
 <div id="authorCard">
-  <form action="/authors/delete" method="post">
+  <form action="/authors?_method=DELETE" method="POST">
     <span><%= index + 1 %>.</span>
     <input
       id="display-authors"

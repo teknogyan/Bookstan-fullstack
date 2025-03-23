@@ -17,7 +17,6 @@ router.get("/", async (req, res) => {
 });
 
 // route to the new author page
-
 router.get("/new", (req, res) => {
     res.render("authors/new", { authorName: "Author's name here", err: null });
 });
@@ -51,13 +50,14 @@ router.post("/", async (req, res) => {
     }
 });
 
-// route for deleting the authors, using a subroute since DELETE method  on '/' route doesn't exist apparently...
-router.post("/delete", async (req, res) => {
+// route for deleting the authors, using "method-override library since Delete request can't be send through HTML"
+router.delete("/", async (req, res) => {
     const nameToDelete = req.body.authorName;
     console.log("author to delete", nameToDelete);
     const author = await Author.deleteOne({ name: nameToDelete });
     const data = await Author.find({});
     const authors = data.map((datum) => datum.name);
-    res.render("authors", { data: authors });
-});
+    res.render("authors", { data: authors, inputQuery: null });
+})
+
 module.exports = router;

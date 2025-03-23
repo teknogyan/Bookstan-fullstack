@@ -7,6 +7,7 @@ const multer = require("multer"); // library to handle multipart form that may c
 const path = require("path");
 const book = require("../models/book");
 const { error } = require("console");
+const { default: mongoose } = require("mongoose");
 const fileUploadPath = path.join("public", Books.coverImgDir);
 
 const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"]; // allowed images files formats for upload
@@ -29,9 +30,20 @@ router.get("/", async (req, res) => {
     console.log("Book To find: ", searchQuery.title);
   }
   const books = await findBooks(searchQuery);
-  // console.log("books recieved form DB", books);
   res.render("books", { books: books, searchQuery, error: null });
 });
+
+// GET Route to load individual book
+router.get("/:id", async(req, res) => {
+  const bookId = req.params.id;
+  console.log("book id requested", bookId)
+  console.log(mongoose.Types.ObjectId.isValid(bookId))
+  const book = await Books.findOne({_id: bookId});
+  console.log(book)
+  res.send(book)
+  // TODO: figure out how to create and render dynamic views according to 'id'
+
+})
 
 // Add New Book Route
 router.get("/new", async (req, res) => {
@@ -104,7 +116,8 @@ router.post("/delete", async (req, res) => {
 });
 
 
-// Utility function to load books from db and populate authors
+// Utility functions
+// To load books from db and populate authors
 const findBooks = async (bookToFind) => {
   const books = await Books.find(bookToFind).populate("author");
   return books;

@@ -20,8 +20,9 @@
   <h4><%= book.pageCount %> pages</h4>
   <h4>published on: <%= book.publishedDate.toLocaleDateString() %></h4>
   <p><%= book.description %></p>
+  <a href="/books/<%= book.id %>">Know more</a> 
   <form action="/books/delete" method="post">
-  <input hidden name= "id" value= "<%= book.id %>" >
+  <input hidden name= "id" value= "<%= book._id %>" >
   <button id="delete-button" type="submit">
     <i class="fa-solid fa-trash-can"></i>
   </button>
