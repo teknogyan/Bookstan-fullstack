@@ -6,31 +6,45 @@ const Author = require("../models/author");
 const multer = require("multer"); // library to handle multipart form that may contain images
 const path = require("path");
 const book = require("../models/book");
-const { error } = require("console");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const fileUploadPath = path.join("public", Books.coverImgDir);
 
-const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"]; // allowed images files formats for upload
-const upload = multer({
-  dest: fileUploadPath,
-  fileFilter: (req, file, callback) => {
-    if (imageMimeTypes.indexOf(file.mimetype) == -1) {
-      callback(null, false);qa
-    } else {
-      callback(null, true);
-    }
-  },
-});
+ // allowed images files formats for upload
+// const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
+
+// const upload = multer({
+//   dest: fileUploadPath,
+//   fileFilter: (req, file, callback) => {
+//     if (imageMimeTypes.indexOf(file.mimetype) == -1) {
+//       callback(null, false);
+//     } else {
+//       callback(null, true);
+//     }
+//   },
+// });
 
 // GET Route to load books page
 router.get("/", async (req, res) => {
   const searchQuery = {};
   if (req.query.bookToFind) {
     searchQuery.title = req.query.bookToFind;
-    console.log("Book To find: ", searchQuery.title);
   }
   const books = await findBooks(searchQuery);
   res.render("books", { books: books, searchQuery, error: null });
+});
+
+
+
+// Add New Book Route
+router.get("/new", async (req, res) => {
+  try {
+    const authors = await Author.find({});
+    console.log(authors);
+    res.render("books/new", { authors: authors });
+  } catch (err) {
+    res.redirect("/books");
+  }
+
 });
 
 // GET Route to load individual book
@@ -45,39 +59,20 @@ router.get("/:id", async(req, res) => {
 
 })
 
-// Add New Book Route
-router.get("/new", async (req, res) => {
-  try {
-    const authors = await Author.find({});
-    res.render("books/new", { authors: authors });
-  } catch (err) {
-    res.redirect("/books");
-  }
-});
-
 // Route for creating new book
-router.post("/", upload.single("thumbnail"), async (req, res) => {
-  console.log(req.file);
-  const filename = req.file != null ? req.file.filename : null;
+router.post("/", async (req, res) => {
   const {
     title,
     author: authorId,
     published,
     pages,
     created,
+    thumbnail,
     description,
   } = req.body;
   const authorObj = await Author.findById(authorId);
-  console.log(
-    title,
-    authorObj,
-    authorId,
-    pages,
-    published,
-    created,
-    description,
-    req.file
-  );
+
+  // console.log( title, authorObj, authorId, pages, published, created, thumbnail, description);
 
   const book = new Books({
     title: title,
@@ -87,7 +82,7 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
     createdAt: !created ? undefined : new Date(created),
     author: authorObj,
     description: description,
-    thumbnail: filename,
+    thumbnail: thumbnail,
   });
 
   try {
@@ -95,9 +90,11 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
     res.redirect("/books");
   } catch (err) {
     console.log("error saving book:", err);
-    res.render("books/new", { book, error: err });
+    const authors = await Author.find({});
+    res.render("books/new", { book, authors, error: err });
   }
 });
+
 
 router.post("/delete", async (req, res) => {
   console.log(req.body.id);

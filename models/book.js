@@ -20,9 +20,6 @@ const bookSchema = new mongoose.Schema({
   thumbnail: {
     type: String,
   },
-  thumbnail: {
-    type: String,
-  },
   createdAt: {
     type: Date,
     required: true,

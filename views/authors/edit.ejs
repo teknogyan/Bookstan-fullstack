@@ -1,0 +1,24 @@
+<div>
+  <h2>Edit Author</h2>
+  
+  <form action="/authors?_method=PUT" method="POST">
+    <label for="authorName">Author's Name</label>
+    <input type="text" name="authorName" value="<%= authorName %>" />
+    <input type="hidden" name="authorId" value="<%= authorId %>">
+    <button type="submit">Edit</button>
+    <a href="/authors">Cancel</a>
+  </form>
+</div>
+
+<style>
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  input {
+     height: 1.4rem;
+  }
+
+</style>
+
+

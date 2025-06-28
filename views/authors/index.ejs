@@ -7,18 +7,26 @@
   </button>
 </form>
 
-<% if (data.length === 0) { %>
+<% if (authors.length === 0) { %>
 <div style="color: gray">Author not found!</div>
-<% } %> <% data.map((author, index) => { %>
+<% } %> 
+<% authors.map((author, index) => { %>
 <div id="authorCard">
+  <span><%= index + 1 %>.</span>
+  <input
+    id="display-authors"
+    type="text"
+    name="authorName"
+    value="<%= author.name %>"
+  />
+
+    <a href= "<%= `authors/${author.id}/edit` %>" id="update-button">
+      <i class="fa-solid fa-pen"></i>
+    </a>
+  </form>
+
   <form action="/authors?_method=DELETE" method="POST">
-    <span><%= index + 1 %>.</span>
-    <input
-      id="display-authors"
-      type="text"
-      name="authorName"
-      value="<%= author %>"
-    />
+    <input type="hidden" name="authorName" value="<%= author %>">
     <button id="delete-button" type="submit">
       <i class="fa-solid fa-trash-can"></i>
     </button>
@@ -49,5 +57,16 @@
     outline: none;
     color: #fff;
     font-size: 1.2rem;
+  }
+  #delete-button,
+  #update-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: red;
+    margin: 1rem;
+    font-size: 1.2rem;
+    padding: 0.2rem 0.2rem;
+    cursor: pointer;
   }
 </style>

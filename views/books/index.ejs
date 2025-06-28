@@ -1,7 +1,7 @@
 <h2>Find Books</h2>
-
+<%= searchQuery.title %>
 <form action="/books" method="get">
-  <input type="text" name="bookToFind" value= <%= searchQuery.title %> />
+  <input type="text" name="bookToFind" value= "<%= searchQuery.title %>" />
   <button type="submit">
     <i class="fa-solid fa-magnifying-glass"></i>
   </button>
@@ -9,10 +9,11 @@
 
 <div class="books-container">
 <% books.map((book) => { %> 
-<% const thumbnail = (book.thumbnail) ? `uploads/bookCovers/${book.thumbnail}` : '#' %>
+<% const thumbnail = (book.thumbnail) ? JSON.parse(book.thumbnail) : '#' %>
 <div class="book-card">
   
-  <img width="100px" height="150px" src= <%= thumbnail %> alt="" />
+  <!-- Thumbnail image is represented by a base 64 string  -->
+  <img width="100px" height="150px" src= <%= `data:${thumbnail.type};charset=utf-8;base64,${thumbnail.data}` %> alt="" />
   <h3><%= book.title %></h3>
   <% if(book.author) {%>
   <h4>by: <%= book.author.name %></h4>

@@ -1,5 +1,6 @@
 const express = require("express");
 const Author = require("../models/author");
+const { default: mongoose } = require("mongoose");
 const router = express.Router();
 
 // route to get authors from db and display them with the ability to search authors
@@ -10,10 +11,10 @@ router.get("/", async (req, res) => {
     if (authorToFind !== null && authorToFind !== "") {
         searchOptions.name = new RegExp(authorToFind, "i");
     }
-    const data = await Author.find(searchOptions);
-    console.log("data from DB", data);
-    const authors = data.map((datum) => datum.name);
-    res.render("authors", { data: authors, inputQuery: authorToFind });
+
+    const authors = await Author.find(searchOptions);
+    console.log("data from DB", authors);
+    res.render("authors", { authors, inputQuery: authorToFind });
 });
 
 // route to the new author page
@@ -23,7 +24,7 @@ router.get("/new", (req, res) => {
 
 // route for creating new author
 router.post("/", async (req, res) => {
-    // console.log("POST => ", req);
+    // console.log("POST => ", req.body);
     try {
         const authorName = req.body.authorName;
         const author = new Author({ name: authorName }); //creates new author using the declared Schema
@@ -49,8 +50,27 @@ router.post("/", async (req, res) => {
         });
     }
 });
+// Route for editing the author
+router.get("/:id/edit", async (req, res) => {
+    const {id} = req.params;   
+    const authorToEdit = await Author.findById(id);
+    const {_id, name} = authorToEdit;
+    res.render("authors/edit", { authorId: _id, authorName: name}); 
+})
 
-// route for deleting the authors, using "method-override library since Delete request can't be send through HTML"
+router.put("/", async (req, res) => {
+    const {authorId, authorName} = req.body;
+    console.log(authorId, authorName);
+    try {
+        await Author.findByIdAndUpdate(authorId, {name: authorName});
+        res.redirect("authors")
+    } catch (error) {
+        console.log(error)
+        res.render("authors/edit", { authorId, authorName});
+    }
+})
+
+// route for deleting the authors, using "method-override library on front-end since Delete request can't be send through HTML"
 router.delete("/", async (req, res) => {
     const nameToDelete = req.body.authorName;
     console.log("author to delete", nameToDelete);
