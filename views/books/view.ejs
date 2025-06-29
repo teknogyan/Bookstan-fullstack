@@ -1,0 +1,27 @@
+<div class="books-container" >
+
+<% const thumbnail = (book.thumbnail) ? JSON.parse(book.thumbnail) : '#' %>
+<div class="book-card-single">
+  <!-- Thumbnail image is represented by a base 64 string  -->
+<div class="book-image">
+  <img width="320px" height="480px" src= <%= `data:${thumbnail.type};charset=utf-8;base64,${thumbnail.data}` %> alt="" />
+
+</div>
+<div class="book-details">
+  <h3><%= book.title %></h3>
+  <h4>Author: <%= book.author.name %></h4>
+  <span>Created: <%= book.createdAt.toLocaleDateString() %></span>
+  <span>Published: <%= book.publishedDate.toLocaleDateString() %></span>
+
+  <h4> Pages: <%= book.pageCount %> </h4>
+  <p><%= book.description %></p>
+  <a href="/books">Go back</a> 
+  <form action="/books/delete" method="post">
+  <input hidden name= "id" value= "<%= book.id %>" >
+  <button class="button" type="submit">
+    <i class="fa-solid fa-trash-can"></i>
+  </button>
+  </form>
+</div>
+</div>
+</div>

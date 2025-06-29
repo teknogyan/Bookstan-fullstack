@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const coverImgDir = "uploads/bookCovers";
 
 const bookSchema = new mongoose.Schema({
   title: {
@@ -33,7 +32,5 @@ const bookSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Book", bookSchema);
-
-module.exports.coverImgDir = coverImgDir;
 
 console.log("module being exported are",  module.exports);

@@ -12,14 +12,24 @@
       href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
       rel="stylesheet"
     />
-    
-    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <link rel="stylesheet" href="/style.css">
 
-    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"
+    ></script>
+
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"
+    ></script>
 
     <script defer src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    
+
     <!-- the '/utils folder is /public/utils during development' -->
     <script defer src="/utils/fileUploads.js"></script>
 
@@ -28,7 +38,7 @@
   <body>
     <header>
       <nav>
-        <a href="/">LOGO</a>
+        <a href="/books">LOGO</a>
         <ul>
           <li><a href="/books">Books</a></li>
           <li><a href="/books/new">Add Book</a></li>
@@ -47,47 +57,3 @@
   ></script>
 </html>
 
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  li {
-    list-style: none;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-  ul {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  header {
-    margin-top: 1rem;
-  }
-
-  nav {
-    margin: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  main {
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  footer {
-    margin-top: 24px;
-    text-align: center;
-  }
-
-</style>

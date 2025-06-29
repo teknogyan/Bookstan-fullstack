@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: red;
+  margin: 1rem;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.2rem;
+  cursor: pointer;
+}
+
+header {
+  margin-top: 1rem;
+}
+
+nav {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+main {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 40px;
+}
+.books-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 80%;
+}
+
+.book-card {
+  background-color: rgba(0, 128, 128, 0.555);
+  margin: 2rem auto;
+  width: 320px;
+  padding: 14px 20px;
+  border-radius: 8px;
+}
+
+.book-card:hover {
+  box-shadow: 2px 2px 8px;
+}
+
+.book-card-single {
+  display: flex;
+  background-color: rgba(0, 128, 128, 0.555);
+  margin: 2rem auto;
+  width: 80%;
+  padding: 14px 20px;
+  border-radius: 8px;
+  justify-content: center;
+  column-gap: calc(10%);
+}
+.book-details {
+    margin: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+.error-message {
+  color: red;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+footer {
+  margin-top: 24px;
+  text-align: center;
+}

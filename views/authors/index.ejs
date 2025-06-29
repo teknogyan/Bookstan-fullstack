@@ -20,14 +20,14 @@
     value="<%= author.name %>"
   />
 
-    <a href= "<%= `authors/${author.id}/edit` %>" id="update-button">
+    <a href= "<%= `authors/${author.id}/edit` %>" class="button">
       <i class="fa-solid fa-pen"></i>
     </a>
   </form>
 
   <form action="/authors?_method=DELETE" method="POST">
     <input type="hidden" name="authorName" value="<%= author %>">
-    <button id="delete-button" type="submit">
+    <button class="button" type="submit">
       <i class="fa-solid fa-trash-can"></i>
     </button>
   </form>
@@ -58,15 +58,5 @@
     color: #fff;
     font-size: 1.2rem;
   }
-  #delete-button,
-  #update-button {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: red;
-    margin: 1rem;
-    font-size: 1.2rem;
-    padding: 0.2rem 0.2rem;
-    cursor: pointer;
-  }
+
 </style>

@@ -3,11 +3,7 @@ const router = express.Router();
 const Books = require("../models/book");
 console.log(Books);
 const Author = require("../models/author");
-const multer = require("multer"); // library to handle multipart form that may contain images
-const path = require("path");
-const book = require("../models/book");
 const mongoose = require("mongoose");
-const fileUploadPath = path.join("public", Books.coverImgDir);
 
  // allowed images files formats for upload
 // const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -30,6 +26,7 @@ router.get("/", async (req, res) => {
     searchQuery.title = req.query.bookToFind;
   }
   const books = await findBooks(searchQuery);
+  // console.log(books)
   res.render("books", { books: books, searchQuery, error: null });
 });
 
@@ -39,7 +36,7 @@ router.get("/", async (req, res) => {
 router.get("/new", async (req, res) => {
   try {
     const authors = await Author.find({});
-    console.log(authors);
+    // console.log(authors);
     res.render("books/new", { authors: authors });
   } catch (err) {
     res.redirect("/books");
@@ -49,12 +46,16 @@ router.get("/new", async (req, res) => {
 
 // GET Route to load individual book
 router.get("/:id", async(req, res) => {
-  const bookId = req.params.id;
+  try {
+    const bookId = req.params.id;
   console.log("book id requested", bookId)
-  console.log(mongoose.Types.ObjectId.isValid(bookId))
-  const book = await Books.findOne({_id: bookId});
+  const book = await Books.findById(bookId).populate("author");
   console.log(book)
-  res.send(book)
+  res.render("books/view", {book})
+    
+  } catch (error) {
+    
+  }
   // TODO: figure out how to create and render dynamic views according to 'id'
 
 })
@@ -63,16 +64,16 @@ router.get("/:id", async(req, res) => {
 router.post("/", async (req, res) => {
   const {
     title,
-    author: authorId,
+    author: authorId, // destructering the variable author and setting it as authorId
     published,
     pages,
-    created,
+    created, 
     thumbnail,
     description,
   } = req.body;
   const authorObj = await Author.findById(authorId);
 
-  // console.log( title, authorObj, authorId, pages, published, created, thumbnail, description);
+  console.log( title, authorObj, authorId, pages, published, created, thumbnail, description);
 
   const book = new Books({
     title: title,

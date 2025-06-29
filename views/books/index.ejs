@@ -11,20 +11,15 @@
 <% books.map((book) => { %> 
 <% const thumbnail = (book.thumbnail) ? JSON.parse(book.thumbnail) : '#' %>
 <div class="book-card">
-  
   <!-- Thumbnail image is represented by a base 64 string  -->
   <img width="100px" height="150px" src= <%= `data:${thumbnail.type};charset=utf-8;base64,${thumbnail.data}` %> alt="" />
   <h3><%= book.title %></h3>
-  <% if(book.author) {%>
-  <h4>by: <%= book.author.name %></h4>
-  <% } %>
-  <h4><%= book.pageCount %> pages</h4>
-  <h4>published on: <%= book.publishedDate.toLocaleDateString() %></h4>
-  <p><%= book.description %></p>
-  <a href="/books/<%= book.id %>">Know more</a> 
+  <h4>Author: <%= book.author.name %></h4>
+  <h4> Pages: <%= book.pageCount %> </h4>
+  <a href="/books/<%= book.id %>">Know more...</a> 
   <form action="/books/delete" method="post">
-  <input hidden name= "id" value= "<%= book._id %>" >
-  <button id="delete-button" type="submit">
+  <input hidden name= "id" value= "<%= book.id %>" >
+  <button class="button" type="submit">
     <i class="fa-solid fa-trash-can"></i>
   </button>
   </form>
@@ -38,32 +33,3 @@
 </div>
   <% } %>
 
-
-<style>
-  .books-container {
-    display: flex;
-    flex-direction: row;
-    margin: 0 auto;
-    gap: 1rem;
-    flex-wrap: wrap;
-    max-width: 80%;
-
-  }
-
-  .book-card {
-    background-color: rgba(0, 128, 128, 0.555);
-    margin: 2rem auto;
-    width: 320px;
-    padding: 14px 20px;
-    border-radius: 4px;
-  }
-  .book-card:hover{
-    transform: scale(1.1);
-    transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
-  .error-message {
-    color: red;
-    font-size: 1.2em;
-    font-weight: 700;
-  }
-</style>
