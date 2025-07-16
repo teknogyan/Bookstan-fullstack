@@ -1,7 +1,22 @@
+:root {
+  --secondary: #ebe7ff;
+  --shadow: #e7f1ff;
+  --text-heading: #160749;
+  --text-normal: #48199b;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-color: #f6f4ff;
+  color: var(--text-normal);
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: var(--text-heading);
 }
 li {
   list-style: none;
@@ -54,20 +69,20 @@ main {
 }
 
 .book-card {
-  background-color: rgba(0, 128, 128, 0.555);
+  background-color: var(--secondary);
   margin: 2rem auto;
   width: 320px;
   padding: 14px 20px;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 .book-card:hover {
-  box-shadow: 2px 2px 8px;
+  box-shadow: 4px 4px 8px 5px var(--shadow);
 }
 
 .book-card-single {
   display: flex;
-  background-color: rgba(0, 128, 128, 0.555);
+  background-color: var(--secondary);
   margin: 2rem auto;
   width: 80%;
   padding: 14px 20px;
