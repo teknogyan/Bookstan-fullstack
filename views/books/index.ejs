@@ -16,13 +16,9 @@
   <h3><%= book.title %></h3>
   <h4>Author: <%= book.author.name %></h4>
   <h4> Pages: <%= book.pageCount %> </h4>
-  <a href="/books/<%= book.id %>">Know more...</a> 
-  <form action="/books/delete" method="post">
-  <input hidden name= "id" value= "<%= book.id %>" >
-  <button class="button" type="submit">
-    <i class="fa-solid fa-trash-can"></i>
-  </button>
-  </form>
+  <a href="/books/<%= book.id %>" class="button">
+    <i class="fa-solid fa-ellipsis"></i>
+  </a> 
 </div>
 <% }) %>  
 </div>
