@@ -1,0 +1,100 @@
+<div>
+  <h2>Edit Book</h2>
+
+  <form action="/books?_method=PUT" method="POST" >
+    <div class="">
+      <input type="text" name="id" hidden value="<%= book.id %>">
+    </div>
+    <div>
+      <label for="title">Title</label>
+      <input type="text" name="title" value="<%= book.title %>" required />
+    </div>
+
+    <div>
+      <label for="author"> Author </label>
+      <select name="author" id="">
+        <% authors.map((author) => { %>
+            <% if (author.id === book.author.id) { %>
+                <option selected value="<%= author.id %>"><%= author.name %></option>   
+            <% } else { %>
+                <option value="<%= author.id %>"><%= author.name %></option>
+            <% }}) %>
+      </select>
+    </div>
+
+    <div>
+      <label for="published">Published on</label>
+      <input type="date" name="published" placeholder="yyyy/mm/dd" value="<%= book.publishedDate.toISOString().slice(0, 10) %>" required />
+    </div>
+
+    <div>
+      <label for="pages">Page Count</label>
+      <input type="number" min="1" name="pages" value="<%= book.pageCount %>" required />
+    </div>
+
+    <div>
+      <label for="created">Created on</label>
+      <input type="date" name="created" placeholder="yyyy/mm/dd" value="<%= book.createdAt.toISOString().slice(0, 10) %>" />
+    </div>
+
+    <div>
+      <label for="thumbnail">Thumbnail</label>
+      <input
+        type="file"
+        name="thumbnail"
+        class="filepond"
+        multiple
+        data-allow-reorder="true"
+        data-max-file-size="3MB"
+        data-max-files="3"
+      />
+    </div>
+    <div class="">
+        <% const thumbnail = (book.thumbnail) ? JSON.parse(book.thumbnail) : '#' %>
+         <img width="100px" height="150px" src= <%= `data:${thumbnail.type};charset=utf-8;base64,${thumbnail.data}` %> alt="" />
+    </div>
+
+    <div>
+      <label for="description">Description</label>
+      <textarea name="description"  id="" cols="30" rows="10"><%= book.description %></textarea>
+    </div>
+
+    <button type="submit">Create</button>
+
+    <a href="/books">Cancel</a>
+  </form>
+</div>
+
+<style>
+  form {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+
+  label {
+    display: block;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  input {
+    height: 1.4rem;
+  }
+
+  .error {
+    color: red;
+  }
+  /* To style filepond container size */
+  .filepond--root {
+    width: 300px;
+    height: 300px;
+  }
+</style>
