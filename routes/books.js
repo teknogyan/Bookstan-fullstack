@@ -95,7 +95,7 @@ router.get("/edit/:id", async (req, res) => {
     const book = await Books.findById(bookId).populate("author");
     const authors = await Author.find({});
     console.log(book.title);
-    res.render("books/edit", { book, authors });
+    res.render("books/edit/", { book, authors });
   } catch (error) {
     console.log(error);
   }
@@ -145,9 +145,7 @@ router.put("/", async (req, res) => {
     res.redirect("/books")
   } catch (error) {
     console.log("error while updating: ", error);
-    const book = await Books.findById(id);
-    const authors = await Author.find({});
-    res.render("authors/edit", {book, authors })
+    res.redirect(`/edit/${id}`)
   }
 });
 
