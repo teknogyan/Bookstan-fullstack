@@ -1,1 +1,9 @@
-## This is a fullstack library project using Node, Express and EJS templating engine
+# Bookstan Library Management
+This is a fullstack library management project.
+
+### Technologies used:
+- Runtime: Node.js
+- Backend: Express
+- Templating engine: EJS
+- file upload: Filepond
+
