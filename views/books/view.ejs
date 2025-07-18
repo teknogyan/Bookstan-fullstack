@@ -1,5 +1,3 @@
-<div class="books-container" >
-
 <% const thumbnail = (book.thumbnail) ? JSON.parse(book.thumbnail) : '#' %>
 <div class="book-card-single">
   <!-- Thumbnail image is represented by a base 64 string  -->
@@ -15,9 +13,10 @@
 
   <h4> Pages: <%= book.pageCount %> </h4>
   <p><%= book.description %></p>
-  <a href="/books" class="button">
-    <i class="fa-solid fa-left-long"></i>
 
+ <div class="book-options">
+   <a href="/books" class="button">
+    <i class="fa-solid fa-left-long"></i>
   </a> 
 
    <a href= <%= `/books/edit/${book.id}` %> class="button" >
@@ -30,6 +29,7 @@
     <i class="fa-solid fa-trash-can"></i>
   </button>
   </form>
+ </div>
 </div>
 </div>
-</div>
+

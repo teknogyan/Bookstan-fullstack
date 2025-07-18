@@ -15,7 +15,12 @@ body {
   color: var(--text-normal);
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-heading);
 }
 li {
@@ -50,15 +55,45 @@ header {
 }
 
 nav {
-  margin: 10px;
+  margin: 1rem;
   display: flex;
   justify-content: space-between;
+  padding: 0.2rem 2rem;
+}
+#logo {
+  width: 2rem;
 }
 main {
   margin: 0 auto;
   text-align: center;
   margin-top: 40px;
 }
+div#authorCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary);
+  margin: 1rem auto;
+  width: fit-content;
+  height: auto;
+  color: var(--text-heading);
+  font-size: 1.4rem;
+  padding: 0.8rem 0.4rem;
+  border-radius: 8px;
+}
+
+span {
+  margin-right: 4px;
+}
+
+input[type="text"]#display-authors {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-normal);
+  font-size: 1.2rem;
+}
+
 .books-container {
   display: flex;
   flex-direction: row;
@@ -89,14 +124,19 @@ main {
   border-radius: 8px;
   justify-content: center;
   column-gap: calc(10%);
+  flex-wrap: wrap;
 }
 .book-details {
-    margin: 4rem 0;
+  margin: 4rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
 }
+.book-options {
+  display: flex;
+  justify-content: center;
+}
+
 .error-message {
   color: red;
   font-size: 1.2em;
@@ -106,4 +146,12 @@ main {
 footer {
   margin-top: 24px;
   text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  nav {
+    justify-content: space-between;
+    margin: 0.4rem;
+    padding: 0.8rem;
+  }
 }
