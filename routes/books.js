@@ -94,8 +94,7 @@ router.get("/edit/:id", async (req, res) => {
     console.log("book id requested", bookId);
     const book = await Books.findById(bookId).populate("author");
     const authors = await Author.find({});
-    console.log(book.title);
-    res.render("books/edit/", { book, authors });
+    res.render("books/edit", { book, authors });
   } catch (error) {
     console.log(error);
   }
