@@ -1,0 +1,26 @@
+<form action="" id="login-form" method="post">
+  <h1>Login</h1>
+  <div class="">
+    <div class="">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="" />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="email" id="" />
+    </div>
+    <div>
+      <button type="submit" class="button submit-button">Login</button>
+    </div>
+    <div class="message">
+      <p><%= message %></p>
+    </div>
+  </div>
+</form>
+
+<script>
+  const messageBox = document.getElementsByClassName("message")[0];
+  setTimeout(() => {
+    messageBox.style.display = "none"
+  }, 3000);
+</script>

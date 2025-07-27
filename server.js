@@ -3,7 +3,7 @@ const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const dotEnv = require("dotenv").config();
 const methodOverride = require('method-override')
-
+const cookieParser = require("cookie-parser")
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 5000;
@@ -11,8 +11,10 @@ const PORT = process.env.PORT || 5000;
 const indexRoute = require("./routes/index");
 const authorsRoute = require("./routes/authors");
 const booksRoute = require("./routes/books");
+const authRoute = require("./routes/auth");
 
 app.use(methodOverride('_method')) // Middleware to send Delete and Put request through HTML
+app.use(cookieParser()) //Middleware to parse cookies from request object
 
 app.use(expressLayouts);
 
@@ -50,6 +52,7 @@ dbConn.once("open", () => {
 app.use("/", indexRoute);
 app.use("/authors", authorsRoute);
 app.use("/books", booksRoute);
+app.use("/auth", authRoute);
 
 app.listen(PORT, () => {
     console.log(`listening on the Port ${PORT}`);

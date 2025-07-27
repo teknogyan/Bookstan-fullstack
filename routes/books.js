@@ -5,20 +5,6 @@ console.log(Books);
 const Author = require("../models/author");
 const mongoose = require("mongoose");
 
-// allowed images files formats for upload
-// const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
-
-// const upload = multer({
-//   dest: fileUploadPath,
-//   fileFilter: (req, file, callback) => {
-//     if (imageMimeTypes.indexOf(file.mimetype) == -1) {
-//       callback(null, false);
-//     } else {
-//       callback(null, true);
-//     }
-//   },
-// });
-
 // GET Route to load books page
 router.get("/", async (req, res) => {
   const searchQuery = {};

@@ -39,6 +39,21 @@ ul {
   justify-content: space-between;
   gap: 1rem;
 }
+
+label {
+  display: block;
+  margin-right: 1rem;
+}
+input {
+  line-height: 1.2rem;
+  font-size: 1rem;
+  margin: 4px auto;
+  padding: 2px 4px;
+  border: none;
+  outline: 1px solid var(--text-normal);
+  border-radius: 4px;
+}
+
 .button {
   background-color: transparent;
   border: none;
@@ -50,6 +65,17 @@ ul {
   cursor: pointer;
 }
 
+.submit-button {
+  font-size: 1rem;
+  border: var(--text-normal) 1px solid ;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+.submit-button:hover {
+  box-shadow: 2px 2px 1px 1px var(--text-normal);
+  scale: 1.1;
+  transition: all 0.1s ease-in;
+}
 header {
   margin-top: 1rem;
 }
@@ -135,6 +161,24 @@ input[type="text"]#display-authors {
 .book-options {
   display: flex;
   justify-content: center;
+}
+
+#login-form,
+#signup-form {
+  background-color: var(--secondary);
+  padding: 20px;
+  max-width: 80vw;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+#login-form > div,
+#signup-form > div {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .error-message {
