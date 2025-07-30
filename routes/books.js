@@ -4,7 +4,6 @@ const Books = require("../models/book");
 console.log(Books);
 const Author = require("../models/author");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 
 //custom middleware
 const authMiddleware = require("../middlewares/authMiddleware")
