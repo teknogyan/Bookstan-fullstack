@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Books = require("../models/book");
-console.log(Books);
 const Author = require("../models/author");
 const mongoose = require("mongoose");
 
@@ -17,7 +16,6 @@ router.get("/", async (req, res) => {
     searchQuery.title = req.query.bookToFind;
   }
   const books = await findBooks(searchQuery);
-  // console.log(books)
   res.render("books", { books: books, searchQuery, error: null });
 });
 
@@ -40,8 +38,9 @@ router.get("/:id", async (req, res) => {
     const book = await Books.findById(bookId).populate("author");
     console.log(book);
     res.render("books/view", { book });
-  } catch (error) {}
-  // TODO: figure out how to create and render dynamic views according to 'id'
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 // Route for creating new book
