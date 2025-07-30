@@ -72,7 +72,7 @@ const encryptPass = async (password) => {
 // Recieves input by user and compares password, return a boolean and the user associated with the credentials
 const validateUser = async (email, password) => {
   const user = await User.findOne({ email });
-  const isValidUser = await bcrypt.compare(password, user.password);
+  const isValidUser = user ? await bcrypt.compare(password, user.password) : false;
   return { user, isValidUser };
 };
 
