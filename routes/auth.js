@@ -14,7 +14,6 @@ router.post("/signup", async (req, res) => {
   const { username, email } = req.body;
   let { password } = req.body;
   password = await encryptPass(password);
-  console.log(username, email, password);
   if (
     (await User.exists({ username: username })) ||
     (await User.exists({ email: email }))
@@ -48,8 +47,6 @@ router.get("/login", (req, res) => {
 router.post("/login", async (req, res) => {
   const { email } = req.body;
   let password = req.body.password;
-
-  console.log(password);
 
   const { user, isValidUser } = await validateUser(email, password);
   if (isValidUser) {

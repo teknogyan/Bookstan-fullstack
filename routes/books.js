@@ -5,9 +5,8 @@ const Author = require("../models/author");
 const mongoose = require("mongoose");
 
 //custom middleware
-const authMiddleware = require("../middlewares/authMiddleware")
+const authMiddleware = require("../middlewares/authMiddleware");
 router.use(authMiddleware); //middleware for auth
-
 
 // GET Route to load books page
 router.get("/", async (req, res) => {
@@ -34,12 +33,10 @@ router.get("/new", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const bookId = req.params.id;
-    console.log("book id requested", bookId);
     const book = await Books.findById(bookId).populate("author");
-    console.log(book);
     res.render("books/view", { book });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 });
 
@@ -81,7 +78,6 @@ router.post("/", async (req, res) => {
 router.get("/edit/:id", async (req, res) => {
   try {
     const bookId = req.params.id;
-    console.log("book id requested", bookId);
     const book = await Books.findById(bookId).populate("author");
     const authors = await Author.find({});
     res.render("books/edit", { book, authors });
@@ -92,8 +88,6 @@ router.get("/edit/:id", async (req, res) => {
 
 // Rout for updating the book info
 router.put("/", async (req, res) => {
-  console.log("From put route:", req.body);
-
   const {
     id,
     title,
@@ -105,36 +99,20 @@ router.put("/", async (req, res) => {
     description,
   } = req.body;
   const authorObj = await Author.findById(authorId);
-
-  console.log(
-    id,
-    title,
-    authorObj,
-    authorId,
-    pages,
-    published,
-    created,
-    thumbnail,
-    description
-  );
-
   try {
-    await Books.findByIdAndUpdate(
-      id,
-      {
-        title: title,
-        publishedDate: new Date(published),
-        pageCount: pages,
-        createdAt: new Date(created),
-        author: authorObj,
-        description: description,
-        thumbnail: thumbnail,
-      }
-    );
-    res.redirect("/books")
+    await Books.findByIdAndUpdate(id, {
+      title: title,
+      publishedDate: new Date(published),
+      pageCount: pages,
+      createdAt: new Date(created),
+      author: authorObj,
+      description: description,
+      thumbnail: thumbnail,
+    });
+    res.redirect("/books");
   } catch (error) {
     console.log("error while updating: ", error);
-    res.redirect(`/edit/${id}`)
+    res.redirect(`/edit/${id}`);
   }
 });
 
