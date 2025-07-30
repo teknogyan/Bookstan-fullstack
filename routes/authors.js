@@ -3,6 +3,10 @@ const Author = require("../models/author");
 const { default: mongoose } = require("mongoose");
 const router = express.Router();
 
+//custom middleware
+const authMiddleware = require("../middlewares/authMiddleware")
+router.use(authMiddleware); //middleware for auth
+
 // route to get authors from db and display them with the ability to search authors
 router.get("/", async (req, res) => {
   const authorToFind = req.query.authorToFind;

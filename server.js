@@ -30,6 +30,7 @@ app.use(express.json());
 // In the course the 'body-parser' library is used which comes bundled with express now, I guess.
 app.use(express.urlencoded({ limit: "10mb", extended: false }));
 
+
 const { collection } = require("./models/author");
 const author = require("./models/author");
 try {

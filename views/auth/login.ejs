@@ -1,4 +1,4 @@
-<form action="" id="login-form" method="post">
+<form action="/auth/login" id="login-form" method="post">
   <h1>Login</h1>
   <div class="">
     <div class="">
@@ -7,10 +7,13 @@
     </div>
     <div>
       <label for="password">Password</label>
-      <input type="password" name="email" id="" />
+      <input type="password" name="password" id="" />
     </div>
     <div>
       <button type="submit" class="button submit-button">Login</button>
+    </div>
+    <div class="">
+      <p>Haven't registerd yet? <a href="/auth/signup">Sign up</a></p>
     </div>
     <div class="message">
       <p><%= message %></p>
