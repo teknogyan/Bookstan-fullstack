@@ -63,6 +63,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwtCookie");
+  res.redirect("/")
+})
+
 // Encryps password using 'bcrypt'
 const encryptPass = async (password) => {
   const salt = await bcrypt.genSalt();

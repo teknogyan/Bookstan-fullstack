@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
   if (req.cookies.jwtCookie) {
-    console.log("cookies from user: ", req.cookies.jwtCookie);
     const isValid = jwt.verify(req.cookies.jwtCookie, process.env.JWT_SECRET);
     if (isValid) {
       next();

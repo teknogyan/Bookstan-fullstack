@@ -10,14 +10,12 @@ router.use(authMiddleware); //middleware for auth
 // route to get authors from db and display them with the ability to search authors
 router.get("/", async (req, res) => {
   const authorToFind = req.query.authorToFind;
-  console.log("name to look for", authorToFind);
   const searchOptions = {}; // if no author is being looked for, all authors will be shown
   if (authorToFind !== null && authorToFind !== "") {
     searchOptions.name = new RegExp(authorToFind, "i");
   }
 
   const authors = await Author.find(searchOptions);
-  console.log("data from DB", authors);
   res.render("authors", { authors, inputQuery: authorToFind });
 });
 
@@ -33,7 +31,7 @@ router.post("/", async (req, res) => {
     const authorName = req.body.authorName;
     const author = new Author({ name: authorName }); //creates new author using the declared Schema
     const authorExists = await Author.exists({ name: authorName }); // checking if author already exist in the database
-    console.log(authorExists);
+
 
     if (authorExists) {
       res.render("authors/new", {
@@ -64,7 +62,6 @@ router.get("/:id/edit", async (req, res) => {
 
 router.put("/", async (req, res) => {
   const { authorId, authorName } = req.body;
-  console.log(authorId, authorName);
   try {
     await Author.findByIdAndUpdate(authorId, { name: authorName });
     res.redirect("authors");
@@ -77,7 +74,6 @@ router.put("/", async (req, res) => {
 // route for deleting the authors, using "method-override library on front-end since Delete request can't be send through HTML"
 router.delete("/", async (req, res) => {
   const nameToDelete = req.body.authorName;
-  console.log("author to delete", nameToDelete);
   const author = await Author.deleteOne({ name: nameToDelete });
   const data = await Author.find({});
   const authors = data.map((datum) => datum.name);
