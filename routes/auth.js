@@ -63,6 +63,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Logout a user by clearing jwt cookie
 router.get("/logout", (req, res) => {
   res.clearCookie("jwtCookie");
   res.redirect("/")
